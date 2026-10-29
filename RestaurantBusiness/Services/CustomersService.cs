@@ -73,15 +73,13 @@ namespace RestaurantBusiness.Services
                                
                 await _uintOfWork.SaveChangesAsync();
 
-                await _uintOfWork.CommitTransactionAsync();
-
+                
                 return Result.Success();
             }
 
             catch
             {
-                await _uintOfWork.RollbackTransactionAsync();
-
+                
                 return Result.Failure("Something is wrong");
             }
             
@@ -146,6 +144,8 @@ namespace RestaurantBusiness.Services
             if (customerToUpdate == null)
                 return Result.Failure("No custome with this id");
 
+            customerToUpdate.Name=customer.Name;
+            customerToUpdate.Phone = customer.Phone;
             customerToUpdate.Address = customer.Address;
 
             return await _uintOfWork.SaveChangesAsync() >0? Result.Success():Result.Failure("Something is wrong");

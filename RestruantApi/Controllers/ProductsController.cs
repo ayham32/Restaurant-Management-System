@@ -65,7 +65,7 @@ namespace RestaurantApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [HttpPost("AddNewProduct")]
-        public async Task<IActionResult> AddNewProduct(CreateProductDto newProduct)
+        public async Task<IActionResult> AddNewProduct([FromForm] CreateProductDto newProduct)
         {
             var result = await _product.AddNewProduct(newProduct);
 
@@ -77,7 +77,7 @@ namespace RestaurantApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpPut("UpdateProduct/{Id}")]
-        public async Task<IActionResult> UpdateProduct(int Id , UpdateProductDto product)
+        public async Task<IActionResult> UpdateProduct(int Id , [FromForm] UpdateProductDto product)
         {
             var result = await _product.UpdateProduct(Id, product);
 

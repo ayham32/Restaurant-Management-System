@@ -81,7 +81,7 @@ namespace RestaurantApi.Controllers
 
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [HttpPut("UpdateCutomer/{Id}")]
+        [HttpPut("UpdateCustomer/{Id}")]
         public async Task<IActionResult> UpdateCustmoer (int Id,UpdateCustomerDto customer)
         {
 
@@ -94,8 +94,8 @@ namespace RestaurantApi.Controllers
 
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [HttpDelete("DeleteCutomer/{Id}")]
-        public async Task<IActionResult> DeleteCutomer(int Id)
+        [HttpDelete("DeleteCustomer/{Id}")]
+        public async Task<IActionResult> DeleteCustomer(int Id)
         {
 
             var result = await _customer.DeleteCustomer(Id);
@@ -104,6 +104,6 @@ namespace RestaurantApi.Controllers
 
         }
 
-
+          
     }
 }

@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Users Management</title>
+    <link rel="stylesheet" href="../../css/global.css" />
+    <script type="module" src="../../js/global.js"></script>
+    <script type="module" src="../../js/users.js"></script>
+  </head>
+
+  <body data-role="Admin">
+    <div id="header"></div>
+
+    <div class="grid-sidebar-main">
+      <div id="sideBar"></div>
+      <main>
+        <div>
+          <div id="pageHeader"></div>
+          <div class="table-box">
+            <div class="search-add">
+              <div>
+                <label for="Uesrname">Username: </label>
+                <input
+                  type="text"
+                  name="Username"
+                  id="Username"
+                  placeholder="search by username..."
+                />
+              </div>
+              <div>
+                <label for="active">Active: </label>
+                <select name="active" id="active">
+                  <option value="">All</option>
+                  <option value="true">Active</option>
+                  <option value="false">Not Active</option>
+                </select>
+              </div>
+
+              <button id="btnSearch">🔍</button>
+              <div id="pagination"></div>
+              <button id="btnAdd">+</button>
+            </div>
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Person Id</th>
+                    <th>Name</th>
+                    <th>National Number</th>
+                    <th>Username</th>
+                    <th>Is Active</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="userBody"></tbody>
+              </table>
+            </div>
+            <div id="records"></div>
+          </div>
+        </div>
+
+        <div id="mess"></div>
+
+        <dialog id="addNewUser">
+          <button class="close-btn" id="btnClose">X</button>
+          <h2 id="title">Add New User</h2>
+          <form class="add-new-Form" id="addUserForm">
+            <div class="add-new-item">
+              <label for="">Person ID </label>
+              <input type="text" name="personId" id="personId" required />
+            </div>
+            <div class="add-new-item">
+              <label for="username">Username </label>
+              <input
+                type="text"
+                name="username"
+                id="username"
+                required
+                minlength="4"
+                maxlength="10"
+              />
+            </div>
+            <div class="add-new-item">
+              <label id="labPass" for="pass">Password </label>
+              <input type="text" name="pass" id="pass" required />
+            </div>
+            <div class="add-new-item">
+              <label id="labConfirmPass" for="confirmPass"
+                >Confirm Password
+              </label>
+              <input type="text" name="confirmPass" id="confirmPass" required />
+            </div>
+
+            <div class="add-new-item">
+              <label for="isActive"
+                >Is Activt?
+                <input type="checkbox" name="isActive" id="isActive"
+              /></label>
+            </div>
+
+            <div class="add-new-item">
+              <label for="roles">Roles</label>
+              <select name="roles" id="roles">
+                <option value="1">Admin</option>
+                <option value="2">Emplooyee</option>
+              </select>
+            </div>
+            <button id="save" class="save">Save</button>
+          </form>
+        </dialog>
+
+        <dialog id="showPersonDetails">
+          <button class="close-btn">X</button>
+          <h2>Person Details</h2>
+          <div id="personInfo" class="info">
+            <div class="row-person-info">
+              <h3>Person ID:</h3>
+              <p id="PersonId"></p>
+            </div>
+            <div class="row-info">
+              <h3>First Name:</h3>
+              <p id="firstName"></p>
+            </div>
+            <div class="row-info">
+              <h3>Last Name:</h3>
+              <p id="lastName"></p>
+            </div>
+            <div class="row-info">
+              <h3>National No:</h3>
+              <p id="NationalNo"></p>
+            </div>
+            <div class="row-info">
+              <h3>Gendor:</h3>
+              <p id="gendor"></p>
+            </div>
+            <div class="row-info">
+              <h3>Phone:</h3>
+              <p id="phone"></p>
+            </div>
+            <div class="row-info">
+              <h3>Date Of Birth:</h3>
+              <p id="dateOfBirth"></p>
+            </div>
+          </div>
+        </dialog>
+      </main>
+    </div>
+  </body>
+</html>

@@ -38,7 +38,7 @@ namespace RestaurantBusiness.InterfaceServices
         public Task<bool> isRoleExist(int RoleId);
 
         public Task<Result<ReadUsersDto>> GetUserByPersonId(int PersonId);
-
+        public Task<Result> changePassword(ChangePasswordDto changePassword);
         public static async Task<bool> isAllow(int Id , ClaimsPrincipal User) 
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier);

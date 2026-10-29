@@ -14,9 +14,7 @@ namespace RestaurantBusiness.Validation.OrderItemsValidation
         {
           
 
-            RuleFor(oi => oi.UnitPrice)
-                .NotEmpty()
-                .GreaterThan(0);
+        
 
             RuleFor(oi => oi.Quantity)
                 .NotEmpty()

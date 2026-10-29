@@ -15,20 +15,21 @@
             {
                    await _next(context);
             }
-            catch 
+            catch(Exception e)
             {
-                await HandleExceptionAsync(context);
+                   
+                await HandleExceptionAsync(context,e);
             }
         }
 
-        private Task HandleExceptionAsync(HttpContext context)
+        private Task HandleExceptionAsync(HttpContext context,Exception e)
         {
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = 500;
 
             var result = new
             {
-                message = "Something went wrong. Please try again."
+                message = "Something went wrong. Please try again." 
             };
 
             return context.Response.WriteAsJsonAsync(result);

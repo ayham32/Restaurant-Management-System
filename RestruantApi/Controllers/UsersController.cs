@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantBusiness.InterfaceServices;
+using RestaurantDataAccess.Entities;
 using RestaurantShared.DTOs.UserRolesDTOs;
 using RestaurantShared.DTOs.UsersDTOs;
 using RestaurantShared.Pagination;
@@ -66,9 +67,9 @@ namespace RestaurantApi.Controllers
             if (user == null)
                 return NotFound(user.ErrorMessage) ;
 
-            bool isAllow = await IUsersService.isAllow(user.Data.UserId, User);
+            bool isntAllow = await IUsersService.isAllow(user.Data.UserId, User);
 
-            if (!isAllow)
+            if (isntAllow)
                 return Forbid();
 
 
@@ -181,7 +182,7 @@ namespace RestaurantApi.Controllers
         }
 
 
-
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpGet("Role/{userId}")]
@@ -193,5 +194,14 @@ namespace RestaurantApi.Controllers
             return !userRoles.IsSuccess? BadRequest(userRoles.ErrorMessage) : Ok(userRoles.Data); 
 
         }
+
+        [HttpPut("ChangePassword")]
+        public async Task<ActionResult<Result>> ChangePassword(ChangePasswordDto changePassword)
+        {
+            
+
+            return await _user.changePassword(changePassword);
+          
+        } 
     }
 }

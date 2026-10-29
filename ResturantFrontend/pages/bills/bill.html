@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bills Management</title>
+    <link rel="stylesheet" href="../../css/global.css" />
+    <script type="module" src="../../js/global.js"></script>
+    <script type="module" src="../../js/bill.js"></script>
+  </head>
+
+  <body data-role="Admin,Employee">
+    <div id="header"></div>
+    <div class="grid-sidebar-main">
+      <div id="sideBar"></div>
+      <main>
+        <div>
+          <div id="pageHeader"></div>
+          <button id="btnAdd">Add Bill</button>
+          <div id="cardsBox" class="cards-box"></div>
+        </div>
+
+        <div id="mess"></div>
+
+        <dialog id="addNewBill">
+          <button class="close-btn" id="btnClose">X</button>
+          <h2 id="title">Add New Bill</h2>
+          <form class="add-new-Form" id="addBillForm">
+            <div class="add-new-item">
+              <label for="orderId">orderId: </label>
+              <input type="number" name="orderId" id="orderId" required />
+            </div>
+            <div class="add-new-item">
+              <label for="taxAmount">Tax Amount: </label>
+              <input
+                type="text"
+                name="taxAmount"
+                id="taxAmount"
+                placeholder="Enter tax amount..."
+              />
+            </div>
+            <div class="add-new-item">
+              <label for="discount">Discount: </label>
+              <input
+                type="number"
+                name="discount"
+                id="discount"
+                min="0"
+                max="100"
+                placeholder="Enter the discount rate..."
+              />
+            </div>
+
+            <div class="add-new-item">
+              <label for="paymentMethod">Payment Method: </label>
+              <select name="paymentMethod" id="paymentMethod">
+                <option value="0">Online</option>
+                <option value="1">Card</option>
+                <option value="2">Cash</option>
+              </select>
+            </div>
+            <div class="add-new-item">
+              <label for="paymentStatus">Payment Status: </label>
+              <select name="paymentStatus" id="paymentStatus">
+                <option value="0">Unpaid</option>
+                <option value="1">Paid</option>
+              </select>
+            </div>
+            <button id="save" class="save">Save</button>
+          </form>
+        </dialog>
+      </main>
+    </div>
+  </body>
+</html>

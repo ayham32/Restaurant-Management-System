@@ -17,18 +17,13 @@ namespace RestaurantBusiness.Validation.OrderItemsValidation
 
         private void ApplyOrderItemValidation()
         {
-            RuleFor(oi => oi.OrderId)
-                .NotEmpty()
-                .GreaterThan(0);
+           
 
             RuleFor(oi => oi.ProductId)
                 .NotEmpty()
                 .GreaterThan(0);
 
-            RuleFor(oi => oi.UnitPrice)
-                .NotEmpty()
-                .GreaterThan(0);
-
+         
             RuleFor(oi => oi.Quantity)
                 .NotEmpty()
                 .GreaterThan(0);

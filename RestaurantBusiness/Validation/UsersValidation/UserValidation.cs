@@ -9,8 +9,7 @@ namespace RestaurantBusiness.Validation.UsersValidation
         protected void ApplyUserValidation(
         Expression<Func<T, int>> PersonId,
         Expression<Func<T, string>> Username,
-        Expression<Func<T, string>> HashPassword,
-        Expression<Func<T, bool>> IsActive)
+        Expression<Func<T, string>> Pass)
         {
             RuleFor(PersonId)
                 .NotEmpty()
@@ -19,17 +18,28 @@ namespace RestaurantBusiness.Validation.UsersValidation
             RuleFor(Username)
                 .NotEmpty();
 
-            RuleFor(HashPassword)
+            RuleFor(Pass)
                 .NotEmpty()
                 .Length(8,20);
 
-            RuleFor(IsActive)
-                .NotEmpty();
-
         }
 
+        protected void ApplyUserValidation(
+       Expression<Func<T, int>> PersonId,
+       Expression<Func<T, string>> Username)
+        {
+            RuleFor(PersonId)
+                .NotEmpty()
+                .GreaterThan(0);
+
+            RuleFor(Username)
+                .NotEmpty();
+
+            
+            
+        }
 
     }
 
 
-    }
+}

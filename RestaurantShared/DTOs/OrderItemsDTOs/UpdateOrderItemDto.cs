@@ -6,7 +6,6 @@ namespace RestaurantShared.DTOs.OrderItemsDTOs
     {
         
       
-        public decimal UnitPrice { get; set; }
 
         public int Quantity { get; set; }
     }

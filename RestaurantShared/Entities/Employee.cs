@@ -19,8 +19,7 @@ public partial class Employee
 
     public virtual ICollection<Bill> Bills { get; set; } = new List<Bill>();
 
-    public virtual ICollection<Delivery> Deliveries { get; set; } = new List<Delivery>();
-
+  
     public virtual ICollection<Employee> InverseManager { get; set; } = new List<Employee>();
 
     public virtual Employee? Manager { get; set; }

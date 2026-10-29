@@ -9,8 +9,7 @@ namespace RestaurantBusiness.Validation.UsersValidation
             ApplyUserValidation(
                 u => u.PersonId,
                 u => u.Username,
-                u => u.HashPassword,
-                u => u.IsActive
+                u => u.Pass
                 );
 
         }

@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employees Management</title>
+    <link rel="stylesheet" href="../../css/global.css" />
+    <script type="module" src="../../js/global.js"></script>
+    <script type="module" src="../../js/employee.js"></script>
+  </head>
+
+  <body data-role="Admin">
+    <div id="header"></div>
+    <div class="grid-sidebar-main">
+      <div id="sideBar"></div>
+      <main>
+        <div>
+          <div id="pageHeader"></div>
+          <div class="table-box">
+            <div class="search-add">
+              <div id="searchContainer"></div>
+
+              <div id="pagination"></div>
+              <button id="btnAdd">+</button>
+            </div>
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>User Id</th>
+                    <th>Name</th>
+                    <th>Username</th>
+                    <th>Maneger</th>
+                    <th>Salary</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+              </table>
+            </div>
+            <div>
+              <p id="records">Record:</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="mess"></div>
+
+        <dialog id="addNewEmployee">
+          <button class="close-btn" id="btnClose">X</button>
+          <h2 id="title">Add New User</h2>
+          <form class="add-new-Form" id="addEmployeeForm">
+            <div class="add-new-item">
+              <label id="labUserId" for="userID">User ID </label>
+              <input type="text" name="userID" id="userID" required />
+            </div>
+            <div class="add-new-item">
+              <label for="managerID">Manager ID </label>
+              <input type="text" name="managerID" id="managerID" />
+            </div>
+            <div class="add-new-item">
+              <label for="Salary">Salary </label>
+              <input type="text" name="Salary" id="Salary" required />
+            </div>
+            <div class="add-new-item">
+              <label for="StartTime">Start Time </label>
+              <input
+                type="text"
+                name="StartTime"
+                id="StartTime"
+                required
+                placeholder="00:00:00"
+              />
+            </div>
+
+            <div class="add-new-item">
+              <label for="EndTime">End Time</label
+              ><input
+                type="text"
+                name="EndTime"
+                id="EndTime"
+                placeholder="00:00:00"
+              />
+            </div>
+
+            <button id="save" class="save">Save</button>
+          </form>
+
+          <div class="message" id="mess"></div>
+        </dialog>
+
+        <dialog id="showUserDetails">
+          <button class="close-btn">X</button>
+          <h2>User Details</h2>
+          <div id="userInfo" class="info">
+            <div class="row-info">
+              <h3>User ID:</h3>
+              <p id="userId"></p>
+            </div>
+            <div class="row-info">
+              <h3>Person Id:</h3>
+              <p id="personId"></p>
+            </div>
+            <div class="row-info">
+              <h3>Username:</h3>
+              <p id="username"></p>
+            </div>
+            <div class="row-info">
+              <h3>Name:</h3>
+              <p id="name"></p>
+            </div>
+            <div class="row-info">
+              <h3>National Number:</h3>
+              <p id="nationalNo"></p>
+            </div>
+            <div class="row-info">
+              <h3>Is Active?:</h3>
+              <p id="IsActive"></p>
+            </div>
+          </div>
+        </dialog>
+
+        <dialog id="showEmployeeDetails">
+          <button class="close-btn">X</button>
+          <h2>Employee Details</h2>
+          <div id="employeeInfo" class="info">
+            <div class="row-info">
+              <h3>Employee ID:</h3>
+              <p id="EmployeeId"></p>
+            </div>
+            <div class="row-info">
+              <h3>User ID:</h3>
+              <p id="UserId"></p>
+            </div>
+            <div class="row-info">
+              <h3>Username:</h3>
+              <p id="Username"></p>
+            </div>
+            <div class="row-info">
+              <h3>Name:</h3>
+              <p id="Name"></p>
+            </div>
+            <div class="row-info">
+              <h3>Is Active?:</h3>
+              <p id="isActive"></p>
+            </div>
+            <div class="row-info">
+              <h3>Manager By:</h3>
+              <p id="managerBy"></p>
+            </div>
+            <div class="row-info">
+              <h3>Salary:</h3>
+              <p id="salary"></p>
+            </div>
+            <div class="row-info">
+              <h3>Start Time:</h3>
+              <p id="startTime"></p>
+            </div>
+            <div class="row-info">
+              <h3>End Time:</h3>
+              <p id="endTime"></p>
+            </div>
+          </div>
+        </dialog>
+      </main>
+    </div>
+  </body>
+</html>

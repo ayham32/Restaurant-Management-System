@@ -14,15 +14,15 @@ namespace RestaurantDataAccess.UintOfWork
         public IUsersRepository usersRepository { get; }
         public ICustomerRepository customerRepository { get; }
         public IEmployeeRepository empolyeesRepository { get; }
-        public IDeliveryRepository deliveryRepository { get; }
-        public ICategoriesRepository categoriesRepository { get; }
+       public ICategoriesRepository categoriesRepository { get; }
         public IOrdersRepository ordersRepository { get; }
         public IOrderItemsRepository orderItemsRepository { get; }
         public IProductRepository productRepository { get; }
         public IBillRepository billRepository { get; }
 
         public IRefreshTokenRepository refreshTokenRepository { get; }
-
+        public IDashboardRepository dashboardRepository { get; }
+        public IDashboardEmployeeRepository dashboardEmployeeRepository { get; }
         public UnitOfWorkService(RestaurantDbContext context)
         {
             _context = context;
@@ -30,14 +30,14 @@ namespace RestaurantDataAccess.UintOfWork
             usersRepository = new UsersRepository(context);
             customerRepository = new CustomerRepository(context);
             empolyeesRepository = new EmployeeRepository(context);
-            deliveryRepository = new DeliveryRepository(context);
             categoriesRepository=new CategoriesRepository(context);
             orderItemsRepository=new OrderItemsRepository(context);
             ordersRepository=new OrdersRepository(context);
             productRepository =new ProductRepository(context);
             billRepository  = new BillRepository(context);
             refreshTokenRepository = new RefreshTokenRepository(context);
-           
+            dashboardRepository = new DashboardRepository(context);
+            dashboardEmployeeRepository = new DashboardEmployeeRepository(context);
         }
 
         

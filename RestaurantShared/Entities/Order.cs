@@ -27,7 +27,6 @@ public partial class Order
 
     public virtual Customer? Customer { get; set; }
 
-    public virtual Delivery? Delivery { get; set; } 
-
+   
     public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 }

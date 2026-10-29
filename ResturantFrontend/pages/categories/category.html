@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Categories Management</title>
+    <link rel="stylesheet" href="../../css/global.css" />
+    <script type="module" src="../../js/global.js"></script>
+    <script type="module" src="../../js/category.js"></script>
+  </head>
+
+  <body data-role="Admin,Employee">
+    <div id="header"></div>
+    <div class="grid-sidebar-main">
+      <div id="sideBar"></div>
+      <main>
+        <div>
+          <div id="pageHeader"></div>
+          <div id="cardsBox" class="cards-box"></div>
+        </div>
+
+        <div id="mess"></div>
+
+        <dialog id="addNewCategory">
+          <button class="close-btn" id="btnClose">X</button>
+          <h2 id="title">Add New Category</h2>
+          <form class="add-new-Form" id="addCategoryForm">
+            <div class="add-new-item">
+              <label for="categoryName">Category: </label>
+              <input
+                type="text"
+                name="categoryName"
+                id="categoryName"
+                required
+              />
+            </div>
+            <button id="save" class="save">Save</button>
+          </form>
+        </dialog>
+      </main>
+    </div>
+  </body>
+</html>

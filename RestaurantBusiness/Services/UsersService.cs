@@ -3,6 +3,7 @@ using RestaurantBusiness.InterfaceServices;
 using RestaurantDataAccess.Entities;
 using RestaurantShared.DTOs.UserRolesDTOs;
 using RestaurantShared.DTOs.UsersDTOs;
+using RestaurantShared.global;
 using RestaurantShared.Pagination;
 using RestaurantShared.Parameters;
 using RestaurantShared.Results;
@@ -26,24 +27,42 @@ namespace RestaurantBusiness.Services
 
             if (!await _uintOfWork.peopleRepository.isExistAsync(newUser.PersonId))
                 return Result<int>.Failure($"No exist person with id: {newUser.PersonId}");
+            
+            if(await _uintOfWork.usersRepository.isUserHasPersonId(newUser.PersonId))
+                return Result<int>.Failure($"This Id: {newUser.PersonId} ,is already in use");
 
             if (await isUserExist(newUser.Username))
                 return Result<int>.Failure("Username is already exists.");
 
-
-            var User = new User
+            try
             {
-                PersonId = newUser.PersonId,
-                Username = newUser.Username,
-                HashPassword = BCrypt.Net.BCrypt.HashPassword(newUser.HashPassword),
-                IsActive = true,
-                
-            };
-            
-            await _uintOfWork.usersRepository.AddAsync(User);
+                await _uintOfWork.BeginTransactionAsync();
+                var User = new User
+                {
+                    PersonId = newUser.PersonId,
+                    Username = newUser.Username,
+                    HashPassword = BCrypt.Net.BCrypt.HashPassword(newUser.Pass),
+                    IsActive = newUser.IsActive,
+                };
 
-            return await _uintOfWork.SaveChangesAsync() >0 ? Result<int>.Success(User.UserId):Result<int>.Failure("Something is wrong");
+                await _uintOfWork.usersRepository.AddAsync(User);
+                await _uintOfWork.SaveChangesAsync();
 
+                var userRole = new UserRole
+                {
+                    UserId = User.UserId,
+                    RoleId = newUser.RoleId
+                };
+
+                await _uintOfWork.usersRepository.AssignRole(userRole);
+                await _uintOfWork.SaveChangesAsync();
+                await _uintOfWork.CommitTransactionAsync();
+                return   Result<int>.Success(User.UserId);
+            }
+            catch  {
+                await _uintOfWork.RollbackTransactionAsync();
+                return Result<int>.Failure("Something is wrong, try again");
+            }
         }
 
         public async Task<Result> DeleteUser(int UserId)
@@ -83,7 +102,7 @@ namespace RestaurantBusiness.Services
                 Items = UsersDto,
                 PageNumber = parameter.PageNumber,
                 PageSize = parameter.PageSize,
-                TotalCount = UsersDto.Count
+                TotalCount = Users.TotalCount
 
 
             };
@@ -96,10 +115,10 @@ namespace RestaurantBusiness.Services
             if (UserId <= 0)
                 return Result<ReadUsersDto>.Failure("Id must be a postive");
 
-            var User = await _uintOfWork.usersRepository.GetByIdAsync(UserId);
+            var User = await _uintOfWork.usersRepository.GetUserAsync(UserId);
 
             if (User == null)
-                return Result<ReadUsersDto>.Failure("User is not exist");
+                return Result<ReadUsersDto>.Failure("User is not exist"); 
 
             var UserDto = new ReadUsersDto
             {
@@ -157,32 +176,36 @@ namespace RestaurantBusiness.Services
             return await _uintOfWork.usersRepository.isUserExistAsync(Username);
         }
 
-        public async Task<Result> UpdateUser(int UserId,UpdateUserDto user)
+        public async Task<Result> UpdateUser(int UserId, UpdateUserDto user)
         {
-            if (UserId<=0 )
+            if (UserId <= 0)
                 return Result.Failure("Id must be a postive");
 
             if (user == null)
                 return Result.Failure("User must`nt be a null");
+            try {
+                await _uintOfWork.BeginTransactionAsync();
+                var UserToUpdate = await _uintOfWork.usersRepository.GetByIdAsync(UserId);
+                var userRole = await _uintOfWork.usersRepository.GetUserRoles(UserId);
+                if (UserToUpdate == null)
+                    return Result.Failure("No user with Id");
 
-            var UserToUpdate = await _uintOfWork.usersRepository.GetByIdAsync(UserId);
+                if (UserToUpdate.Username != user.Username)
+                    if (await isUserExist(user.Username))
+                        return Result.Failure("This username belongs to someone else");
+                userRole[0].RoleId = user.roleId;
+                UserToUpdate.Username = user.Username;
+                UserToUpdate.IsActive = user.IsActive;
 
-            if (UserToUpdate == null)
-                return Result.Failure("No user with Id");
-
-            if (UserToUpdate.Username != user.Username)
-                if (await isUserExist(user.Username))
-                    return Result.Failure("This username belongs to someone else");
-
-            UserToUpdate.Username = user.Username;
-
-            UserToUpdate.IsActive = user.IsActive;
-
-            UserToUpdate.HashPassword = BCrypt.Net.BCrypt.HashPassword(user.HashPassword);
-
-            
-            return await _uintOfWork.SaveChangesAsync() > 0? Result.Success():Result.Failure("Something is wrong");
-        }
+                await _uintOfWork.SaveChangesAsync();
+                await _uintOfWork.CommitTransactionAsync();
+                return Result.Success();
+                }
+            catch {
+                await _uintOfWork.RollbackTransactionAsync();
+                return Result.Failure("Something is wrong");
+            }
+            }
 
         public async Task<Result> AssignRole(CreateUserRolesDto userRoles)
         {
@@ -290,6 +313,19 @@ namespace RestaurantBusiness.Services
             };
 
             return Result<ReadUsersDto>.Success(UserDto);
+        }
+        public async Task<Result> changePassword(ChangePasswordDto changePassword)
+        {
+            var User = await _uintOfWork.usersRepository.GetByIdAsync(user.u.UserId);
+
+            if (User == null)
+                return Result.Failure("user is null");
+            
+            if (!BCrypt.Net.BCrypt.Verify(changePassword.oldPassword, User.HashPassword))
+                return Result.Failure("Old password is incorrect");
+
+            User.HashPassword = BCrypt.Net.BCrypt.HashPassword(changePassword.newPassword);
+            return await _uintOfWork.SaveChangesAsync() > 0 ? Result.Success() : Result.Failure("Somethings is wrong");
         }
     }
 }

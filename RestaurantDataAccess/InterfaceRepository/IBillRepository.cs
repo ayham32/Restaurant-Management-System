@@ -13,6 +13,7 @@ namespace RestaurantDataAccess.InterfaceRepository
         public Task<List<Bill>> GetBillsAsync();
 
         public Task<Bill> GetBillAsync(int BillId);
+        public Task< bool> IsExistByOrderIdAsync(int OrderId);
 
 
     }

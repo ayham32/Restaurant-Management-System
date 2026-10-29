@@ -8,9 +8,11 @@ namespace RestaurantShared.DTOs.UsersDTOs
 
         public string Username { get; set; } = null!;
 
-        public string HashPassword { get; set; } = null!;
+        public string Pass { get; set; } = null!;
 
         public bool IsActive { get; set; }
+        public int RoleId { get; set; }
+        
 
     }
 }

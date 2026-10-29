@@ -9,14 +9,14 @@ namespace RestuarantDataAccess.UintOfWork
         public IUsersRepository usersRepository { get; }
         public ICustomerRepository customerRepository { get; }
         public IEmployeeRepository empolyeesRepository { get; }        
-        public IDeliveryRepository deliveryRepository { get; }
         public ICategoriesRepository categoriesRepository { get; }
         public IOrdersRepository ordersRepository { get; }
         public IOrderItemsRepository orderItemsRepository { get; }
         public IProductRepository productRepository { get; }    
         public IBillRepository billRepository { get; }  
         public IRefreshTokenRepository refreshTokenRepository { get; }
-
+        public IDashboardRepository dashboardRepository { get; }
+        public IDashboardEmployeeRepository dashboardEmployeeRepository { get; }
         public Task<int> SaveChangesAsync();
 
         public Task BeginTransactionAsync();

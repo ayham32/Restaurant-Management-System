@@ -19,8 +19,6 @@ public partial class RestaurantDbContext : DbContext
 
     public virtual DbSet<Customer> Customers { get; set; }
 
-    public virtual DbSet<Delivery> Deliveries { get; set; }
-
     public virtual DbSet<Employee> Employees { get; set; }
 
     public virtual DbSet<Order> Orders { get; set; }
@@ -73,23 +71,6 @@ public partial class RestaurantDbContext : DbContext
             entity.HasKey(e => e.CustomerId).HasName("PK__Customer__A4AE64D820376642");
 
           
-        });
-
-        modelBuilder.Entity<Delivery>(entity =>
-        {
-            entity.HasKey(e => e.DeliveryId).HasName("PK__Deliveri__626D8FCE9FB670BF");
-
-            entity.Property(e => e.Status).HasColumnType("int");
-
-            entity.HasOne(d => d.Employee).WithMany(p => p.Deliveries)
-                .HasForeignKey(d => d.EmployeeId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Deliverie__Emplo__76969D2E");
-
-            entity.HasOne(d => d.Order).WithOne(p => p.Delivery)
-                .HasForeignKey<Delivery>(d => d.OrderId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Deliverie__Order__778AC167");
         });
 
         modelBuilder.Entity<Employee>(entity =>
@@ -197,7 +178,7 @@ public partial class RestaurantDbContext : DbContext
 
             entity.HasOne(d => d.Person).WithOne(p => p.User)
                 .HasForeignKey<User>(d => d.PersonId)
-                .OnDelete(DeleteBehavior.Cascade)
+                .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("FK__Users__PersonId__52593CB8");
         });
 
@@ -214,7 +195,7 @@ public partial class RestaurantDbContext : DbContext
 
             entity.HasOne(d => d.User).WithMany(p => p.UserRoles)
                 .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__UserRoles__UserI__5629CD9C");
         });
 

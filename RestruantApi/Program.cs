@@ -12,7 +12,6 @@ using RestaurantBusiness.Services;
 using RestaurantBusiness.Validation.BillsValidation;
 using RestaurantBusiness.Validation.CategoriesValidation;
 using RestaurantBusiness.Validation.CustomersValidation;
-using RestaurantBusiness.Validation.DeliveriesValidation;
 using RestaurantBusiness.Validation.EmployeesValidation;
 using RestaurantBusiness.Validation.OrderItemsValidation;
 using RestaurantBusiness.Validation.OrdersValidation;
@@ -48,7 +47,9 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IOrdersRepository, OrdersRepository>();
 builder.Services.AddScoped<IOrderItemsRepository, OrderItemsRepository>();
 builder.Services.AddScoped<IBillRepository, BillRepository>();
-builder.Services.AddScoped<IDeliveryRepository, DeliveryRepository>();
+builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
+builder.Services.AddScoped<IDashboardEmployeeRepository, DashboardEmployeeRepository>();
+
 
 builder.Services.AddScoped<IPeopleService, PeopleService>();
 builder.Services.AddScoped<IUsersService, UsersService>();
@@ -58,11 +59,11 @@ builder.Services.AddScoped<ICategoriesService, CategoriesService>();
 builder.Services.AddScoped<IProductsService, ProductsService>();
 builder.Services.AddScoped<IFileServices, FileServices>();
 builder.Services.AddScoped<IOrdersService,OrdersService>();
-builder.Services.AddScoped<IOrderItemsService,OrderItemsService>();
 builder.Services.AddScoped<IBillServices,BillServices>();
-builder.Services.AddScoped<IDeliveriesService,DeliveriesService>();
 builder.Services.AddScoped<ITokenService,TokenService>();
 builder.Services.AddScoped<IAuthService,AuthService>();
+builder.Services.AddScoped<IDashboardService,DashboardService>();
+builder.Services.AddScoped<IDashboardEmployeeService, DashboardEmployeeService>();
 builder.Services.AddScoped<IUnitOfWork,UnitOfWorkService>();
 
 var key = builder.Configuration["JWT_SECRET_KEY:Key"];
@@ -146,8 +147,6 @@ builder.Services.AddValidatorsFromAssemblyContaining<CreateCustomerValidation>()
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateCustomerValidation>();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateEmployeeValidation>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateEmployeeValidation>();
-builder.Services.AddValidatorsFromAssemblyContaining<CreateDeliveryValidation>();
-builder.Services.AddValidatorsFromAssemblyContaining<UpdateDeliveryValidation>();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateProductValidation>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateOrderValidation>();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateOrderValidation>();
@@ -224,10 +223,11 @@ builder.Services.AddCors(options =>
     options.AddPolicy("RestaurantApiCorsPolicy", policy =>
     {
         policy
-            .WithOrigins(
-                "https://localhost:7115",
-                "http://localhost:5018"
-            )
+            //.WithOrigins(
+            //    "https://localhost:7115",
+            //    "http://localhost:5018"
+            //)
+            .AllowAnyOrigin()
             .AllowAnyHeader()
             .AllowAnyMethod();
     });

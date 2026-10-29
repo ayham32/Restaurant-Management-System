@@ -1,0 +1,79 @@
+.login-header {
+  margin: 20px 0;
+  border-bottom: 2px solid;
+  text-align: center;
+}
+
+.login-header button {
+  margin: 10px;
+}
+.login {
+  width: min(60%, 500px);
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  background-color: cadetblue;
+  margin: 10rem auto;
+  padding: 0.5rem;
+  border: 2px solid gainsboro;
+  border-radius: 50px 0;
+  box-shadow:
+    3px 3px 5px rebeccapurple,
+    -3px -3px 5px rebeccapurple;
+}
+.login-logo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.login-info {
+  padding: 0.5rem;
+}
+.row {
+  padding: 0.5rem;
+  font-size: 1.7rem;
+}
+.row label {
+  margin-right: 20px;
+}
+.row input {
+  margin-left: 0.6px;
+  font-size: 1rem;
+  background-color: unset;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 3px solid rgba(65, 65, 62, 0.386);
+  color: var(--text);
+  outline: none;
+}
+.row input:focus {
+  border-bottom: 2px solid black;
+}
+.login-info button {
+  margin-top: 20px;
+  width: 25%;
+}
+.message {
+  color: red;
+}
+@media (max-width: 700px) {
+  .login {
+    width: 90%;
+    margin: 10rem auto;
+  }
+
+  .row {
+    font-size: 1.2rem;
+  }
+
+  .row input {
+    max-width: 100%;
+  }
+
+  .login-info button {
+    width: 50%;
+  }
+}

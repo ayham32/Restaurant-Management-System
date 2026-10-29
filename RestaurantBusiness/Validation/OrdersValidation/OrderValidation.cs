@@ -13,21 +13,14 @@ namespace RestaurantBusiness.Validation.OrdersValidation
 
         protected void ApplyOrderValidation(
         Expression<Func<T, int?>> TableNumber,
-        Expression<Func<T, decimal>> TotalAmount,
-        Expression<Func<T, enOrderStatus>> Status,
+       
         Expression<Func<T, enOrderType>> OrderType)
         {
             
-            RuleFor(TotalAmount)
-                .NotEmpty()
-                .GreaterThanOrEqualTo(0);
-
-            RuleFor(Status)
-                .NotEmpty()
-                .IsInEnum();
+           
 
             RuleFor(OrderType)
-                .NotEmpty()
+               
                 .IsInEnum();
 
            

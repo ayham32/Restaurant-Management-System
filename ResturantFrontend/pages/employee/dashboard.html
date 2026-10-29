@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee Dashboard</title>
+    <link rel="stylesheet" href="../../css/global.css" />
+    <link rel="stylesheet" href="../../css/admin/dashboard.css" />
+    <script type="module" src="../../js/global.js"></script>
+    <script type="module" src="../../js/employee/dashboard.js"></script>
+  </head>
+  <body data-role="Employee">
+    <div id="header"></div>
+
+    <div class="grid-sidebar-main">
+      <div id="sideBar"></div>
+      <main>
+        <div>
+          <div class="head-main">
+            <h2>welcome to dashboard</h2>
+            <p>This is where the system is managed with ease and smoothness.</p>
+          </div>
+          <div class="main-container">
+            <div class="item">
+              <h3>Cancelled Order Count</h3>
+              <p id="cancelledOrderCount"></p>
+            </div>
+            <div class="item">
+              <h3>Completed Order Count</h3>
+              <p id="completedOrderCount"></p>
+            </div>
+            <div class="item">
+              <h3>Cooking Order Count</h3>
+              <p id="cookingOrderCount"></p>
+            </div>
+            <div class="item">
+              <h3>Pending Order Count</h3>
+              <p id="pendingOrderCount"></p>
+            </div>
+            <div class="item">
+              <h3>Products Is`nt Avilable</h3>
+              <p id="isntAvilableProductsCount"></p>
+            </div>
+            <div class="item">
+              <h3>Products Is`nt Avilable</h3>
+              <ul id="productName" class="list ls-1"></ul>
+            </div>
+            <div class="item">
+              <h3>Todays Sales Prices</h3>
+              <p id="todaysSalesPrices"></p>
+            </div>
+          </div>
+
+          <div class="table-box">
+            <div class="section-title">Last five orders</div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Order Id</th>
+                  <th>Customer Name</th>
+                  <th>Total Price</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="tBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

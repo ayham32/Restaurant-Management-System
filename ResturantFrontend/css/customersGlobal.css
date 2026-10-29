@@ -1,0 +1,133 @@
+:root {
+  --color: linear-gradient(to right, grey, white);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+main {
+  flex: 1;
+}
+
+body {
+  background-image: url("../assets/images/Restaurants-Ambiance-1536x1024.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background-image: var(--color);
+  text-align: center;
+  padding: 10px;
+  width: 100%;
+}
+.hero-section {
+  text-align: center;
+  width: 100%;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  color: white;
+  font-size: 40px;
+  margin-bottom: 100px;
+  background-color: rgba(0, 0, 0, 0.357);
+  box-shadow:
+    2px 2px 4px rgb(126, 119, 107),
+    -2px -2px 4px rgb(115, 110, 101),
+    inset 2px 2px 4px rgb(77, 74, 68),
+    inset -2px -2px 4px rgb(79, 77, 74);
+}
+
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 19px;
+  width: 100%;
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.nav-bar a {
+  text-decoration: none;
+  font-size: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin: 15px;
+  padding: 10px 5px;
+  transition: 0.5s;
+  /* box-shadow:
+    2px 2px 4px rgb(206, 164, 92),
+    -2px -2px 4px rgb(200, 170, 118); */
+}
+.nav-bar a:hover {
+  color: rgb(226, 14, 166);
+  transition: 0.5s;
+  box-shadow:
+    2px 2px 4px rgb(142, 117, 76),
+    -2px -2px 4px rgb(142, 117, 76),
+    inset 2px 2px 4px rgb(206, 164, 92),
+    inset -2px -2px 4px rgb(200, 170, 118);
+  border-radius: 14px;
+}
+
+.nav-bar span {
+  display: none;
+}
+.nav-bar a:hover svg {
+  display: none;
+}
+.nav-bar a:hover span {
+  display: inline;
+}
+.login-item {
+  margin-left: auto !important;
+}
+.footer {
+  background-image: var(--color);
+  text-align: center;
+  padding: 20px;
+}
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+.footer-item {
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: 18px;
+  background-color: #ffffff;
+  box-shadow:
+    2px 2px 4px black,
+    -2px -2px 4px black;
+  border-radius: 10px;
+  padding: 20px;
+}
+.footer-item li {
+  list-style: none;
+}
+.footer-item a {
+  text-decoration: none;
+  color: black;
+}
+.footer-item a:hover {
+  color: rgb(255, 0, 0);
+  transition: 0.5s;
+}

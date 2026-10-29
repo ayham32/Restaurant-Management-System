@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>People Management</title>
+    <link rel="stylesheet" href="../../css/global.css" />
+    <link rel="stylesheet" href="../../css/people.css" />
+
+    <script type="module" src="../../js/global.js"></script>
+    <script type="module" src="../../js/person.js"></script>
+  </head>
+
+  <body data-role="Admin">
+    <div id="header"></div>
+
+    <div class="grid-sidebar-main">
+      <div id="sideBar"></div>
+      <main>
+        <div>
+          <div id="pageHeader"></div>
+
+          <div class="table-box">
+            <div class="search-add">
+              <div>
+                <label for="Name">Name: </label>
+                <input
+                  type="text"
+                  name="Name"
+                  id="Name"
+                  placeholder="search by name..."
+                />
+              </div>
+
+              <div class="filterd">
+                <label>
+                  <input type="radio" name="gender" value="all" checked />
+                  All
+                </label>
+
+                <label>
+                  <input type="radio" name="gender" value="male" />
+                  Male
+                </label>
+
+                <label>
+                  <input type="radio" name="gender" value="female" />
+                  Female
+                </label>
+              </div>
+              <button id="search" style="font-size: 30px">🔎</button>
+              <div id="pagination"></div>
+
+              <button id="btnAdd">+</button>
+            </div>
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>PersonId</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>National Number</th>
+                    <th>Phone</th>
+                    <th>Gender</th>
+                    <th>Date Of Birth</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+              </table>
+            </div>
+            <div id="records"></div>
+          </div>
+        </div>
+
+        <div id="mess"></div>
+
+        <dialog id="addEditPerson">
+          <button class="close-btn" id="btnClose">X</button>
+          <h2 id="title">Add New Person</h2>
+          <form class="add-new-Form" id="addEditPersonForm">
+            <div class="add-new-item">
+              <label for="firstName">First Name</label>
+              <input
+                type="text"
+                name="firstName"
+                id="firstName"
+                required
+                placeholder="Enter first name ..."
+              />
+            </div>
+            <div class="add-new-item">
+              <label for="lastName">Last Name</label>
+              <input
+                type="text"
+                name="lastName"
+                id="lastName"
+                required
+                placeholder="Enter last name ..."
+              />
+            </div>
+            <div class="add-new-item">
+              <label for="nationalNo">National No</label>
+              <input
+                type="text"
+                name="nationalNo"
+                id="nationalNo"
+                required
+                placeholder="Enter national no..."
+              />
+            </div>
+            <div class="add-new-item">
+              <label for="phone">phone </label>
+              <input
+                type="tel"
+                name="phone"
+                id="phone"
+                required
+                min="9"
+                max="11"
+              />
+            </div>
+            <div class="add-new-item">
+              <label for="confirmPass">Gender </label>
+              <select name="gender" id="gender">
+                <option value="0">Male</option>
+                <option value="1">Female</option>
+              </select>
+            </div>
+
+            <div class="add-new-item">
+              <label for="dateOfBirth"
+                >Date Of Birth
+                <input type="date" name="dateOfBirth" id="dateOfBirth"
+              /></label>
+            </div>
+            <button id="save" class="save">Save</button>
+          </form>
+        </dialog>
+      </main>
+    </div>
+  </body>
+</html>

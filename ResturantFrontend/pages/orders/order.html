@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Orders Management</title>
+    <link rel="stylesheet" href="../../css/global.css" />
+    <link rel="stylesheet" href="../../css/orders.css" />
+    <script type="module" src="../../js/global.js"></script>
+    <script type="module" src="../../js/order.js"></script>
+  </head>
+
+  <body data-role="Admin,Employee">
+    <div id="header"></div>
+    <div class="grid-sidebar-main">
+      <div id="sideBar"></div>
+      <main>
+        <div id="pageHeader"></div>
+
+        <button id="btnAdd" class="add-btn">Add New Order</button>
+
+        <div id="cardsBox" class="cards-box"></div>
+
+        <div id="mess"></div>
+
+        <dialog id="addEditOrder">
+          <button class="close-btn" id="btnClose">X</button>
+          <h2 id="title">Add New Order</h2>
+          <form class="add-new-Form" id="addEditOrderForm">
+            <div class="add-new-item">
+              <label for="customerId">Customer Id: </label>
+              <input type="text" name="customerId" id="customerId" min="1" />
+            </div>
+
+            <div class="add-new-item">
+              <label for="orderType">Order Type: </label>
+              <select id="orderType">
+                <option value="0">Takeaway</option>
+                <option value="1">Delivery</option>
+                <option value="2">DineIn</option>
+              </select>
+            </div>
+            <div class="add-new-item">
+              <label for="tableNumber">Table Number: </label>
+              <input type="text" name="tableNumber" id="tableNumber" min="0" />
+            </div>
+
+            <button id="save" class="save">Save</button>
+          </form>
+        </dialog>
+
+        <dialog id="addItem">
+          <button class="close-btn" id="btnClose">X</button>
+          <h2>Add New Item</h2>
+          <form class="add-new-Form" id="addItemForm">
+            <div class="add-new-item">
+              <label for="products">Product: </label>
+              <input
+                type="number"
+                name="products"
+                id="products"
+                required
+                min="0"
+                placeholder="Enter product id..."
+              />
+              <button id="btnShowProducts">Show products</button>
+            </div>
+            <div class="add-new-item">
+              <label for="quantity">Quantity: </label>
+              <input
+                type="number"
+                name="quantity"
+                id="quantity"
+                min="0"
+                placeholder="Enter quantity..."
+              />
+            </div>
+
+            <button id="save" class="save">Save</button>
+          </form>
+        </dialog>
+
+        <dialog id="editItem">
+          <button class="close-btn" id="btnClose">X</button>
+          <h2>Edit Item</h2>
+          <form class="add-new-Form" id="editItemForm">
+            <div class="add-new-item">
+              <label for="eQuantity">Quantity: </label>
+              <input type="number" name="eQuantity" id="eQuantity" min="0" />
+            </div>
+
+            <button id="save" class="save">Save</button>
+          </form>
+        </dialog>
+      </main>
+    </div>
+  </body>
+</html>

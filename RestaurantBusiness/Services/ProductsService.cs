@@ -115,9 +115,9 @@ namespace RestaurantBusiness.Services
             var pagedResult = new PagedResult<ReadProductsDto>
             {
                 Items = ProductsDto,
-                TotalCount = ProductsDto.Count,
+                TotalCount = Products.TotalCount,
                 PageNumber = parameter.PageNumber,
-                PageSize = parameter.PageSize
+                PageSize = parameter.PageSize 
             };
 
             return Result<PagedResult<ReadProductsDto>>.Success(pagedResult);

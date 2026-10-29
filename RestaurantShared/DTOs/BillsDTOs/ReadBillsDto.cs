@@ -24,7 +24,7 @@ namespace RestaurantShared.DTOs.BillsDTOs
 
         public DateTime? IssuedAt { get; set; }
 
-        public int CreatedBy { get; set; }
+        public string CreatedBy { get; set; } = null!;
 
     }
 }

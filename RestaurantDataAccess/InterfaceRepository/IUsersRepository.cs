@@ -16,6 +16,7 @@ namespace RestaurantDataAccess.InterfaceRepository
         public Task<PagedResult<User>> GetAllUsersAsync(UserParameter parameter);
         
         public Task<User> GetUserAsync(string Username);
+        public Task<User> GetUserAsync(int UserId);
 
         public Task<bool> isUserExistAsync(string Username);
 
@@ -32,6 +33,8 @@ namespace RestaurantDataAccess.InterfaceRepository
         public Task<bool> isRoleExist(int RoleId);
 
         public Task<User> GetUserByPersonId(int personId);
-      
+
+        public Task<bool> isUserHasPersonId(int personId);
+       
     }
 }

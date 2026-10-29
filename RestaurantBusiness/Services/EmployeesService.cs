@@ -25,11 +25,14 @@ namespace RestaurantBusiness.Services
         {
             if (!await _unitOfWork.usersRepository.isExistAsync(newEmployee.UserId))
                 return Result<int>.Failure("User is not exist");
+            if(await _unitOfWork.empolyeesRepository.isUserIdHasEmployee(newEmployee.UserId))
+                return Result<int>.Failure("This user id is alredy used");
 
             try
             {
 
                 await _unitOfWork.BeginTransactionAsync();
+                
                 var employee = new Employee
                 {
                     UserId = newEmployee.UserId,
@@ -43,13 +46,13 @@ namespace RestaurantBusiness.Services
 
                 await _unitOfWork.empolyeesRepository.AddAsync(employee);
 
-                var employeeRole = new UserRole
-                {
-                    UserId = employee.UserId,
-                    RoleId = (int)enRoles.Employee
-                };
+                //var employeeRole = new UserRole
+                //{
+                //    UserId = employee.UserId,
+                //    RoleId = (int)enRoles.Employee
+                //};
 
-                await _unitOfWork.usersRepository.AssignRole(employeeRole);
+                //await _unitOfWork.usersRepository.AssignRole(employeeRole);
 
 
                 await _unitOfWork.SaveChangesAsync();
@@ -95,6 +98,7 @@ namespace RestaurantBusiness.Services
                 User = new ReadUsersDto
                 {
                     UserId = Employee.UserId,
+                    PersonId = Employee.User.PersonId,
                     Username = Employee.User.Username,
                     FullName = Employee.User.Person.FirstName + " " + Employee.User.Person.LastName,
                     NationalNo = Employee.User.Person.NationalNo,
@@ -128,6 +132,8 @@ namespace RestaurantBusiness.Services
                 User = new ReadUsersDto
                 {
                     UserId = e.UserId,
+                    PersonId = e.User.PersonId,
+
                     Username = e.User.Username,
                     FullName = e.User.Person.FirstName + " " + e.User.Person.LastName,
                     NationalNo = e.User.Person.NationalNo,

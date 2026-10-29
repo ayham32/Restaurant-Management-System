@@ -15,7 +15,7 @@ namespace RestaurantDataAccess.InterfaceRepository
         public Task<PagedResult<Employee>> GetEmployeesAsync(EmployeeParameter parameter);
 
         public Task<Employee> GetEmployeeAsync(int EmployeeId);
-
-     
+        public Task<bool> isUserIdHasEmployee(int userId);
+        public Task<Employee?> GetEmployeeByUserIdAsync(int UserId);
     }
 }

@@ -15,32 +15,26 @@ namespace RestaurantBusiness.Validation.BillsValidation
         private void ApplyBillValidation()
         {
             RuleFor(b => b.OrderId)
-                .NotEmpty()
+                .NotNull()
                 .GreaterThan(0);
 
-            RuleFor(b => b.SubTotal)
-                .NotEmpty()
-                .GreaterThanOrEqualTo(0);
-
+            
             RuleFor(b => b.TaxAmount)
-                .NotEmpty()
+                .NotNull()
                 .GreaterThanOrEqualTo(0);
 
             RuleFor(b => b.Discount)
-              .NotEmpty()
+              .NotNull()
               .GreaterThanOrEqualTo(0);
 
-            RuleFor(b => b.CreatedBy)
-              .NotEmpty()
-              .GreaterThan(0);
-
+         
             RuleFor(b => b.PaymentMethod)
-              .NotEmpty()
+              .NotNull()
               .IsInEnum();
 
 
             RuleFor(b => b.PaymentStatus)
-              .NotEmpty()
+              .NotNull()
               .IsInEnum();
         }
     }

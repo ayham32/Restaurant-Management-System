@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="keywords" content="Restaurant,login,account" />
+    <link rel="stylesheet" href="../../css/global.css" />
+    <link rel="stylesheet" href="../../css/auth/login.css" />
+    <script defer src="../../js/layout.js"></script>
+    <script type="module" src="../../js/global.js"></script>
+    <script type="module" src="../../js/auth/login.js"></script>
+
+    <title>Login</title>
+  </head>
+  <body>
+    <header class="login-header">
+      <h2>Welcome to the login screen</h2>
+      <div id="switchMode"></div>
+      <button id="btnHome">Home</button>
+    </header>
+    <main>
+      <div class="login">
+        <img
+          class="login-logo"
+          src="../../assets/images/pngtree-user-profile-login-icon-in-silver-color-access-authentication-vector-png-image_19841391.png"
+          alt="login image"
+        />
+
+        <form id="loginInfo" class="login-info">
+          <div class="row">
+            <label for="txtUsername">Username </label>
+            <input id="txtUsername" type="text" required minlength="4" />
+          </div>
+          <div class="row">
+            <label for="txtPass">Password </label>
+            <input id="txtPass" type="password" required />
+          </div>
+          <div class="row">
+            <input id="cbRemember" type="checkbox" />
+            <label for="cbRemember">Remember me </label>
+          </div>
+          <button type="submit" id="btnLogin">Login</button>
+        </form>
+        <div id="ms" class="message"></div>
+      </div>
+    </main>
+  </body>
+</html>

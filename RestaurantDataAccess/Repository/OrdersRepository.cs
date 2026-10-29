@@ -21,18 +21,20 @@ namespace RestaurantDataAccess.Repository
         public async Task<Order> GetOrderAsync(int OrderId)
             => await _context.Orders
                              .Include(o=>o.Customer)
-                             .Include(o=>o.CreatedByNavigation)
+                             .Include(o=>o.CreatedByNavigation).ThenInclude(u=>u.User)
+                             .Include(o=>o.OrderItems).ThenInclude(oi=>oi.Product)
                              .SingleOrDefaultAsync(x=> x.OrderId == OrderId);  
 
         public async Task<List<Order>> GetOrdersAsync()
             => await _context.Orders
                              .Include(o => o.Customer)
-                             .Include(o => o.CreatedByNavigation)
+                             .Include(o => o.CreatedByNavigation).ThenInclude(u => u.User)
+                             .Include(o => o.OrderItems)
+                             .ThenInclude(oi => oi.Product)
                              .AsNoTracking()
                              .ToListAsync();
 
         
-
 
     }
 }

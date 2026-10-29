@@ -7,11 +7,11 @@ using RestaurantShared.Parameters;
 
 namespace RestaurantDataAccess.Repository
 {
-    public class EmployeeRepository:GenericRepository<Employee>,IEmployeeRepository
+    public class EmployeeRepository : GenericRepository<Employee>, IEmployeeRepository
     {
         private readonly RestaurantDbContext _context;
 
-        public EmployeeRepository(RestaurantDbContext context):base(context)
+        public EmployeeRepository(RestaurantDbContext context) : base(context)
         {
             _context = context;
         }
@@ -21,9 +21,15 @@ namespace RestaurantDataAccess.Repository
 
         public async Task<Employee?> GetEmployeeAsync(int EmployeeId)
             => await _context.Employees
-                             .Include(e=>e.User)
-                             .ThenInclude(e=>e.Person)
+                             .Include(e => e.User)
+                             .ThenInclude(e => e.Person)
                              .SingleOrDefaultAsync(e => e.EmployeeId == EmployeeId);
+
+        public async Task<Employee?> GetEmployeeByUserIdAsync(int UserId)
+           => await _context.Employees
+                            .Include(e => e.User)
+                            .ThenInclude(e => e.Person)
+                            .SingleOrDefaultAsync(e => e.UserId == UserId);
 
         public async Task<PagedResult<Employee>> GetEmployeesAsync(EmployeeParameter parameter)
         {
@@ -50,9 +56,12 @@ namespace RestaurantDataAccess.Repository
             };
 
         }
+        public async Task<bool> isUserIdHasEmployee(int userId)
+            => await _context.Employees.AnyAsync(e => e.UserId == userId);
+            
 
 
-     
+
 
     }
 }

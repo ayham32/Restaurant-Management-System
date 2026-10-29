@@ -1,0 +1,16 @@
+﻿using RestaurantShared.DTOs.DashboardDTOs;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RestaurantBusiness.InterfaceServices
+{
+    public interface IDashboardService
+    {
+        Task<DashboardStatisticsDto> Statistics();
+
+        Task<List<RecentOrderDto>> RecentOrders();
+    }
+}

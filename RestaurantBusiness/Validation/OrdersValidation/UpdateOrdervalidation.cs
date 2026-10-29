@@ -10,9 +10,8 @@ namespace RestaurantBusiness.Validation.OrdersValidation
             ApplyOrderValidation
                 (
                     o=>o.TableNumber,
-                    o=>o.TotalAmount,
-                    o=>o.Status,
                     o=>o.OrderType
+                   
                 );
         }
     }

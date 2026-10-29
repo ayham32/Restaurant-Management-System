@@ -3,6 +3,7 @@ using RestaurantBusiness.InterfaceServices;
 using RestaurantDataAccess.Entities;
 using RestaurantShared.DTOs.BillsDTOs;
 using RestaurantShared.Enums;
+using RestaurantShared.global;
 using RestaurantShared.Results;
 using RestuarantDataAccess.UintOfWork;
 
@@ -22,29 +23,44 @@ namespace RestaurantBusiness.Services
             if (! await _unitOfWork.ordersRepository.isExistAsync(newBill.OrderId))
                 return Result<int>.Failure("No exist order");
           
+            if (await _unitOfWork.billRepository.IsExistByOrderIdAsync(newBill.OrderId))
+                return Result<int>.Failure("This order already has a bill");
+            
             var Order = await _unitOfWork.ordersRepository.GetByIdAsync(newBill.OrderId);
 
             if (Order == null)
                 return Result<int>.Failure("No exist order");
+
+            if (Order.Status == enOrderStatus.Cancelled)
+                return Result<int>.Failure("Cannot create a bill for a cancelled order");
+
+            var employee = await _unitOfWork.empolyeesRepository.GetEmployeeByUserIdAsync(user.u.UserId);
+            if (employee == null)
+                return Result<int>.Failure("No employee");
 
             try
             {
                 await _unitOfWork.BeginTransactionAsync();
                 var bill = new Bill
                 {
-                    CreatedBy = newBill.CreatedBy,
+                    CreatedBy = employee.EmployeeId,
                     IssuedAt = DateTime.Now,
                     Discount = newBill.Discount,
                     OrderId = newBill.OrderId,
                     PaymentMethod = newBill.PaymentMethod,
                     PaymentStatus = newBill.PaymentStatus,
-                    SubTotal = newBill.SubTotal,
+                    SubTotal = Order.TotalAmount??0,
                     TaxAmount = newBill.TaxAmount,
                 };
 
 
 
-                bill.FinalAmount = ((bill.SubTotal) + (bill.TaxAmount)) * (bill.Discount);
+                var totalBeforeDiscount = bill.SubTotal + bill.TaxAmount;
+
+                var discountAmount =
+                    totalBeforeDiscount * (bill.Discount / 100);
+
+                bill.FinalAmount = totalBeforeDiscount - discountAmount;
                 await _unitOfWork.billRepository.AddAsync(bill);
 
                 Order.Status = enOrderStatus.Completed;
@@ -91,7 +107,7 @@ namespace RestaurantBusiness.Services
             var billDto = new ReadBillsDto
             {
                 BillId = BillId,
-                CreatedBy = bill.CreatedBy,
+                CreatedBy = bill.CreatedByNavigation?.User?.Username,
                 Discount = bill.Discount,
                 FinalAmount = bill.FinalAmount,
                 IssuedAt = bill.IssuedAt,
@@ -116,7 +132,7 @@ namespace RestaurantBusiness.Services
             var billsDto = bills.Select(b => new ReadBillsDto
             {
                 BillId = b.BillId,
-                CreatedBy = b.CreatedBy,
+                CreatedBy = b.CreatedByNavigation?.User?.Username,
                 Discount = b.Discount,
                 FinalAmount = b.FinalAmount,
                 IssuedAt = b.IssuedAt,

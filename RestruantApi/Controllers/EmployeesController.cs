@@ -73,7 +73,7 @@ namespace RestaurantApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [HttpPost("AddNewEmployee")]
-        public async Task<IActionResult> AddNewEmployee(CreateEmployeeDto newEmployee)
+        public async Task<IActionResult> AddNewEmployee([FromBody] CreateEmployeeDto newEmployee)
         {
 
             var result = await _employee.AddNewEmployee(newEmployee);
@@ -85,7 +85,7 @@ namespace RestaurantApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpPut("UpdateEmployee/{Id}")]
-        public async Task<IActionResult> UpdateEmployee(int Id , UpdateEmployeeDto employee)
+        public async Task<IActionResult> UpdateEmployee(int Id , [FromBody] UpdateEmployeeDto employee)
         {
             var result = await _employee.UpdateEmployee(Id, employee);
 
