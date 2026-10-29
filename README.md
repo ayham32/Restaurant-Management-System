@@ -2,7 +2,7 @@
 
 ## Overview
 
-A RESTful API for managing restaurant operations, including products, orders, customers, employees, billing, and delivery workflows.
+A RESTful API for managing restaurant operations, including products, orders, customers, employees and billing workflows.
 
 Built backend with .NET Core 8 and SQL Server using a layered architecture and several software design patterns, and built frontend with HTML,CSS,JavaScript
 
