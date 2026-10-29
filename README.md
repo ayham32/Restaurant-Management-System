@@ -18,7 +18,6 @@ Built backend with .NET Core 8 and SQL Server using a layered architecture and s
 * Order Management
 * Order Items Management
 * Billing System
-* Delivery Management
 * Pagination and Filtering
 * Global Exception Handling Middleware
 * Logging
@@ -31,7 +30,7 @@ Built backend with .NET Core 8 and SQL Server using a layered architecture and s
 
 The project follows a layered architecture:
 
-*RestaurantFrontend
+* RestaurantFrontend
 * RestaurantApi
 * RestaurantBusiness
 * RestaurantDataAccess
@@ -48,7 +47,7 @@ The project follows a layered architecture:
 
 ## Technologies
 
-* ASP.NET Core 8
+* .NET Core 8
 * Entity Framework Core
 * SQL Server
 * JWT Authentication
@@ -73,11 +72,6 @@ Update the connection string inside:
 appsettings.json
 ```
 
-### Run the application
-
-```bash
-dotnet run
-```
 
 ### Open Swagger
 
@@ -90,6 +84,7 @@ https://localhost:{port}/swagger
 ## Project Structure
 
 ```text
+RestaurantFrontend
 RestaurantApi
 RestaurantBusiness
 RestaurantDataAccess
@@ -105,7 +100,7 @@ RestaurantShared
 * Docker Support
 * Caching
 * Email Notifications
-*TypeScript
+* TypeScript
   
 ---
 
