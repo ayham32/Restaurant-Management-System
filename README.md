@@ -4,7 +4,7 @@
 
 A RESTful API for managing restaurant operations, including products, orders, customers, employees, billing, and delivery workflows.
 
-Built with ASP.NET Core 8 and SQL Server using a layered architecture and several software design patterns.
+Built backend with .NET Core 8 and SQL Server using a layered architecture and several software design patterns, and built frontend with HTML,CSS,JavaScript
 
 ---
 
@@ -31,6 +31,7 @@ Built with ASP.NET Core 8 and SQL Server using a layered architecture and severa
 
 The project follows a layered architecture:
 
+*RestaurantFrontend
 * RestaurantApi
 * RestaurantBusiness
 * RestaurantDataAccess
@@ -100,15 +101,16 @@ RestaurantShared
 ## Future Improvements
 
 * Unit Testing
-* Frontend Application
+* Frontend Technology
 * Docker Support
 * Caching
 * Email Notifications
-
+*TypeScript
+  
 ---
 
 ## Project Status
 
 Backend implementation completed.
 
-Frontend application will be developed in the future.
+Frontend implementation can be impoved later.
