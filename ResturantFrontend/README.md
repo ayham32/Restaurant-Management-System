@@ -9,5 +9,4 @@ FrontEnd:
 HTML, CSS, JavaScript
 BackEnd:
 ASP.NET Core
-Databace:
-SQL Server
+
