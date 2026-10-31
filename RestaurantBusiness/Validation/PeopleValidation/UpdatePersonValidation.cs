@@ -34,8 +34,7 @@ namespace RestaurantBusiness.Validation.PeopleValidation
             .GreaterThanOrEqualTo(16);
 
             RuleFor(p => p.Gender)
-            .NotEmpty()
-            .NotNull()
+            
             .IsInEnum();
 
 

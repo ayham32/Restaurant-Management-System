@@ -64,6 +64,7 @@ builder.Services.AddScoped<ITokenService,TokenService>();
 builder.Services.AddScoped<IAuthService,AuthService>();
 builder.Services.AddScoped<IDashboardService,DashboardService>();
 builder.Services.AddScoped<IDashboardEmployeeService, DashboardEmployeeService>();
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 builder.Services.AddScoped<IUnitOfWork,UnitOfWorkService>();
 
 var key = builder.Configuration["JWT_SECRET_KEY:Key"];
@@ -156,7 +157,7 @@ builder.Services.AddValidatorsFromAssemblyContaining<UpdateOrderItemValidation>(
 builder.Services.AddValidatorsFromAssemblyContaining<CreateBillValidation>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateBillValidation>();
 
-
+builder.Services.AddHttpContextAccessor();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -223,16 +224,14 @@ builder.Services.AddCors(options =>
     options.AddPolicy("RestaurantApiCorsPolicy", policy =>
     {
         policy
-            //.WithOrigins(
-            //    "https://localhost:7115",
-            //    "http://localhost:5018"
-            //)
-            .AllowAnyOrigin()
+            .WithOrigins(
+                "http://127.0.0.1:5501",
+                "http://localhost:5501"
+            )
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
 });
-
 
 
 var app = builder.Build();

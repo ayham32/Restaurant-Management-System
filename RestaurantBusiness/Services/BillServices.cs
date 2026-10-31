@@ -3,7 +3,6 @@ using RestaurantBusiness.InterfaceServices;
 using RestaurantDataAccess.Entities;
 using RestaurantShared.DTOs.BillsDTOs;
 using RestaurantShared.Enums;
-using RestaurantShared.global;
 using RestaurantShared.Results;
 using RestuarantDataAccess.UintOfWork;
 
@@ -12,14 +11,21 @@ namespace RestaurantBusiness.Services
     public class BillServices : IBillServices
     {
         private readonly IUnitOfWork _unitOfWork;
-       
-        public BillServices(IUnitOfWork unitOfWork)
+        private readonly ICurrentUserService _currentUserService;
+        public BillServices(IUnitOfWork unitOfWork, ICurrentUserService currentUserService)
         {
             _unitOfWork = unitOfWork;
+            _currentUserService = currentUserService;
         }
 
         public async Task<Result<int>> AddNewBill(CreateBillDto newBill)
         {
+            var userId =_currentUserService.UserId;
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Result<int>.Failure("The user is not authorized, or the session has expired.");
+            }
+
             if (! await _unitOfWork.ordersRepository.isExistAsync(newBill.OrderId))
                 return Result<int>.Failure("No exist order");
           
@@ -34,7 +40,7 @@ namespace RestaurantBusiness.Services
             if (Order.Status == enOrderStatus.Cancelled)
                 return Result<int>.Failure("Cannot create a bill for a cancelled order");
 
-            var employee = await _unitOfWork.empolyeesRepository.GetEmployeeByUserIdAsync(user.u.UserId);
+            var employee = await _unitOfWork.empolyeesRepository.GetEmployeeByUserIdAsync(int.Parse(userId));
             if (employee == null)
                 return Result<int>.Failure("No employee");
 

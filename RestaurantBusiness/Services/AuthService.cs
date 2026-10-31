@@ -3,7 +3,6 @@ using Azure.Core;
 using RestaurantBusiness.InterfaceServices;
 using RestaurantShared.DTOs.Auth;
 using RestaurantShared.Entities;
-using RestaurantShared.global;
 using RestuarantDataAccess.UintOfWork;
 using System.Security.Cryptography;
 using System.Text;
@@ -14,7 +13,7 @@ namespace RestaurantBusiness.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ITokenService _token;
-
+        
         private string HashRefreshToken(string refreshToken)
         {
             using var sha256 = SHA256.Create();
@@ -37,20 +36,23 @@ namespace RestaurantBusiness.Services
             if (request == null)
                 return null;
 
-            user.u = await _unitOfWork.usersRepository.GetUserAsync(request.Username);
+            
 
-            if(user.u == null || !user.u.IsActive)
+            var user = await _unitOfWork.usersRepository.GetUserAsync(request.Username);
+
+            
+            if (user == null || !user.IsActive)
                 return null;
 
 
             bool isValidPassword =
-               BCrypt.Net.BCrypt.Verify(request.Password, user.u.HashPassword);
+               BCrypt.Net.BCrypt.Verify(request.Password, user.HashPassword);
 
 
             if (!isValidPassword)
                 return null;
 
-            var userRoles = await _unitOfWork.usersRepository.GetUserRoles(user.u.UserId);
+            var userRoles = await _unitOfWork.usersRepository.GetUserRoles(user.UserId);
 
             if (userRoles == null)
                 return null;
@@ -58,13 +60,13 @@ namespace RestaurantBusiness.Services
             var userRolesName = userRoles.Select(ur => ur.Role.RoleName).ToList();
 
 
-            var token = await _token.GenerateToken(user.u , userRolesName);
+            var token = await _token.GenerateToken(user,userRolesName);
 
             var refreshToken = await _token.GenerateRefreshToken();
 
             var newRefreshToken = new RefreshToken
             {
-                UserId = user.u.UserId,
+                UserId = user.UserId,
                 RefreshTokenHash = HashRefreshToken(refreshToken),
                 RefreshTokenExpiresAt = DateTime.UtcNow.AddDays(7),
                 RefreshTokenRevokedAt = null

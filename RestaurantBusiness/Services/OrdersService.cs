@@ -5,7 +5,6 @@ using RestaurantShared.DTOs.OrderItemsDTOs;
 using RestaurantShared.DTOs.OrdersDTOs;
 using RestaurantShared.Entities;
 using RestaurantShared.Enums;
-using RestaurantShared.global;
 using RestaurantShared.Results;
 using RestuarantDataAccess.UintOfWork;
 using System;
@@ -20,16 +19,25 @@ namespace RestaurantBusiness.Services
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public OrdersService(IUnitOfWork unitOfWork)
+        private readonly ICurrentUserService _currentUserService;
+        public OrdersService(IUnitOfWork unitOfWork, ICurrentUserService currentUserService)
         {
             _unitOfWork = unitOfWork;
+            _currentUserService = currentUserService;
         }
 
         public async Task<Result<int>> AddNewOrderAsync(CreateOrderDto newOrder)
         {
 
-                
-            var employee = await _unitOfWork.empolyeesRepository.GetEmployeeByUserIdAsync(user.u.UserId);
+
+            var userId = _currentUserService.UserId;
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Result<int>.Failure("The user is not authorized, or the session has expired.");
+            }
+
+
+            var employee = await _unitOfWork.empolyeesRepository.GetEmployeeByUserIdAsync(int.Parse(userId));
             if (employee == null)
                 return Result<int>.Failure("No employee");
              if(newOrder.OrderType ==enOrderType.DineIn && newOrder.TableNumber == null)
@@ -54,7 +62,6 @@ namespace RestaurantBusiness.Services
                 await _unitOfWork.ordersRepository.AddAsync(order);
                 await _unitOfWork.SaveChangesAsync();
                 return Result<int>.Success(order.OrderId);
-              //  return await _unitOfWork.SaveChangesAsync() > 0 ? Result<int>.Success(order.OrderId) : Result<int>.Failure("Something is wrong");
             }
             catch (Exception error)
             { return Result<int>.Failure(error.Message);

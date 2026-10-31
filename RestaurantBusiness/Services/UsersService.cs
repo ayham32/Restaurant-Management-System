@@ -3,7 +3,6 @@ using RestaurantBusiness.InterfaceServices;
 using RestaurantDataAccess.Entities;
 using RestaurantShared.DTOs.UserRolesDTOs;
 using RestaurantShared.DTOs.UsersDTOs;
-using RestaurantShared.global;
 using RestaurantShared.Pagination;
 using RestaurantShared.Parameters;
 using RestaurantShared.Results;
@@ -14,10 +13,12 @@ namespace RestaurantBusiness.Services
     public class UsersService: IUsersService
     {
         private readonly IUnitOfWork _uintOfWork;
+        private readonly ICurrentUserService _currentUserService;
 
-        public UsersService(IUnitOfWork uintOfWork)
+        public UsersService(IUnitOfWork uintOfWork, ICurrentUserService currentUserService)
         {
             _uintOfWork = uintOfWork;
+            _currentUserService = currentUserService;
         }
 
         public async Task<Result<int>> AddNewUser(CreateUserDto newUser)
@@ -316,7 +317,13 @@ namespace RestaurantBusiness.Services
         }
         public async Task<Result> changePassword(ChangePasswordDto changePassword)
         {
-            var User = await _uintOfWork.usersRepository.GetByIdAsync(user.u.UserId);
+            var userId = _currentUserService.UserId;
+            if (string.IsNullOrEmpty(userId))
+            {
+                throw new UnauthorizedAccessException("The user is not authorized, or the session has expired.");
+            }
+
+            var User = await _uintOfWork.usersRepository.GetByIdAsync(int.Parse(userId));
 
             if (User == null)
                 return Result.Failure("user is null");
