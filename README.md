@@ -111,11 +111,11 @@ Restaurant-Management-System/
 ### Prerequisites
 
 - [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
-- SQL Server or SQL Server Express, and SQL Server Management Studio (or any tool that can run a `.s[Uploading RestaurantDB.sql…]()
-ql` script)
-- Visual Studio 2022 (or another .NET IDE)
-- A modern browser
-
+- SQL Server or SQL Server Express
+- SQL Server Management Studio (SSMS), or another tool that can execute SQL scripts
+- Visual Studio 2022 or another compatible .NET IDE
+- A modern web browser
+  
 ### 1. Clone the repository
 
 ```bash
@@ -125,18 +125,22 @@ cd Restaurant-Management-System
 
 ### 2. Create the database
 
-This project uses a **database-first** approach: the database is created with SQL, and the EF Core model was scaffolded from it.
+This project uses a **database-first** approach: the database is created using SQL Server, and the EF Core model is scaffolded from the existing database.
 
 1. Open `database/RestaurantDB.sql` in SQL Server Management Studio.
-2. Run the script. It creates the `ResturantDB` database, all tables and constraints, the roles (Admin, Employee), a few demo products, orders and bills, and two demo accounts. If the schema already exists, it does nothing.
+2. Execute the script.
+3. The script creates the `ResturantDB` database, tables, relationships, constraints, and sample data.
 
-Then set the connection string in `RestruantApi/appsettings.json` to match your SQL Server instance:
+If the database schema already exists, the script will not recreate it.
+
+After creating the database, configure the connection string in `RestruantApi/appsettings.json`:
 
 ```json
-"ConnectionStrings": {
-  "DefaultConnection": "Server=localhost\\SQLEXPRESS;Database=ResturantDB;Trusted_Connection=True;TrustServerCertificate=True;"
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost\\SQLEXPRESS;Database=ResturantDB;Trusted_Connection=True;TrustServerCertificate=True;"
+  }
 }
-```
 
 **Demo logins (local use only):**
 
@@ -236,4 +240,4 @@ Known gaps and planned work:
 **Ayham Loai Badran**
 Computer Systems Engineering student, Palestine Technical University – Kadoorie
 
-GitHub: [ayham32](https://github.com/ayham32) · LinkedIn: [ayham-badran](https://www.linkedin.com/in/ayham-badran-b33018361/))
+GitHub: [ayham32](https://github.com/ayham32) · LinkedIn: [ayham-badran](https://www.linkedin.com/in/ayham-badran-b33018361/)
